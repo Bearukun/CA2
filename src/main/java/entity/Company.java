@@ -30,14 +30,26 @@ public class Company implements Serializable {
     public Company() {
     }
 
-    public Company(Integer id, String name, String description, String cvr, int NumEmployees, double marketValue) {
-        this.id = id;
+    public Company(String name, String description, String cvr, int NumEmployees, double marketValue, InfoEntity infoEntity) {
         this.name = name;
         this.description = description;
         this.cvr = cvr;
         this.NumEmployees = NumEmployees;
         this.marketValue = marketValue;
+        this.infoEntity = infoEntity;
     }
+
+  
+
+    public InfoEntity getInfoEntity() {
+        return infoEntity;
+    }
+
+    public void setInfoEntity(InfoEntity infoEntity) {
+        this.infoEntity = infoEntity;
+    }
+    
+    
 
     public String getName() {
         return name;
@@ -92,9 +104,10 @@ public class Company implements Serializable {
 
     @Override
     public String toString() {
-        return "Company{" + "id=" + id + ", name=" + name + ", description=" + description + ", cvr=" + cvr + ", NumEmployees=" + NumEmployees + ", marketValue=" + marketValue + '}';
+        return "Company{" + "id=" + id + ", name=" + name + ", description=" + description + ", cvr=" + cvr + ", NumEmployees=" + NumEmployees + ", marketValue=" + marketValue + ", infoEntity=" + infoEntity + '}';
     }
 
+  
  
     
 }

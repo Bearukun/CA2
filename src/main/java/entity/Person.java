@@ -35,11 +35,15 @@ public class Person implements Serializable {
     public Person() {
     }
 
-    public Person(Integer id, String firstName, String lastName) {
-        this.id = id;
+    public Person(String firstName, String lastName, List<Hobby> hobbies, InfoEntity infoEntity) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.hobbies = hobbies;
+        this.infoEntity = infoEntity;
     }
+    
+
+    
 
     public String getFirstName() {
         return firstName;
@@ -56,6 +60,24 @@ public class Person implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    public List<Hobby> getHobbies() {
+        return hobbies;
+    }
+
+    public void setHobbies(List<Hobby> hobbies) {
+        this.hobbies = hobbies;
+    }
+
+    public InfoEntity getInfoEntity() {
+        return infoEntity;
+    }
+
+    public void setInfoEntity(InfoEntity infoEntity) {
+        this.infoEntity = infoEntity;
+    }
+    
+    
     
     
     
@@ -69,8 +91,10 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "Person{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + '}';
+        return "Person{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", hobbies=" + hobbies + ", infoEntity=" + infoEntity + '}';
     }
+
+    
 
     
     

@@ -26,11 +26,12 @@ public class InfoEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    
     private String email;
     
     @OneToOne
     private Person person;
+    
     @OneToOne
     private Company company;
     
@@ -45,10 +46,50 @@ public class InfoEntity implements Serializable {
     public InfoEntity() {
     }
 
-    public InfoEntity(Integer id, String email) {
-        this.id = id;
+    public InfoEntity(String email, Person person, Company company, List<Phone> phones, Address address) {
         this.email = email;
+        this.person = person;
+        this.company = company;
+        this.phones = phones;
+        this.address = address;
     }
+
+   
+
+  
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public List<Phone> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+    
     
     
     public Integer getId() {
@@ -69,9 +110,10 @@ public class InfoEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "InfoEntity{" + "id=" + id + ", email=" + email + '}';
+        return "InfoEntity{" + "id=" + id + ", email=" + email + ", person=" + person + ", company=" + company + ", phones=" + phones + ", address=" + address + '}';
     }
-    
+
+   
     
     
     

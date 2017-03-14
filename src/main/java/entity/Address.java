@@ -26,6 +26,7 @@ public class Address implements Serializable {
     
     @OneToMany(mappedBy = "address")
     List<InfoEntity> infoEntity;
+    
     @ManyToOne
     private CityInfo cityInfo;
     
@@ -33,11 +34,32 @@ public class Address implements Serializable {
     public Address() {
     }
 
-    public Address(Integer id, String street, String AdditionalInfo) {
-        this.id = id;
+    public Address(String street, String AdditionalInfo, List<InfoEntity> infoEntity, CityInfo cityInfo) {
         this.street = street;
         this.AdditionalInfo = AdditionalInfo;
+        this.infoEntity = infoEntity;
+        this.cityInfo = cityInfo;
     }
+
+   
+
+    public List<InfoEntity> getInfoEntity() {
+        return infoEntity;
+    }
+
+    public void setInfoEntity(List<InfoEntity> infoEntity) {
+        this.infoEntity = infoEntity;
+    }
+
+    public CityInfo getCityInfo() {
+        return cityInfo;
+    }
+
+    public void setCityInfo(CityInfo cityInfo) {
+        this.cityInfo = cityInfo;
+    }
+    
+    
 
     public String getStreet() {
         return street;
@@ -65,8 +87,10 @@ public class Address implements Serializable {
 
     @Override
     public String toString() {
-        return "Address{" + "id=" + id + ", street=" + street + ", AdditionalInfo=" + AdditionalInfo + '}';
+        return "Address{" + "id=" + id + ", street=" + street + ", AdditionalInfo=" + AdditionalInfo + ", infoEntity=" + infoEntity + ", cityInfo=" + cityInfo + '}';
     }
+
+    
 
     
     

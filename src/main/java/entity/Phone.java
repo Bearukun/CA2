@@ -12,10 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-/**
- *
- * @author Ceo
- */
+
 @Entity
 public class Phone implements Serializable {
 
@@ -23,6 +20,7 @@ public class Phone implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    
     private int number;
     private String description;
     
@@ -32,12 +30,24 @@ public class Phone implements Serializable {
     public Phone() {
     }
 
-    
-    public Phone(Integer id, int number, String description) {
-        this.id = id;
+    public Phone(int number, String description, InfoEntity infoEntity) {
         this.number = number;
         this.description = description;
+        this.infoEntity = infoEntity;
     }
+
+    
+  
+
+    public InfoEntity getInfoEntity() {
+        return infoEntity;
+    }
+
+    public void setInfoEntity(InfoEntity infoEntity) {
+        this.infoEntity = infoEntity;
+    }
+    
+    
 
     public int getNumber() {
         return number;
@@ -65,8 +75,10 @@ public class Phone implements Serializable {
 
     @Override
     public String toString() {
-        return "Phone{" + "id=" + id + ", number=" + number + ", description=" + description + '}';
+        return "Phone{" + "id=" + id + ", number=" + number + ", description=" + description + ", infoEntity=" + infoEntity + '}';
     }
+
+
 
    
     

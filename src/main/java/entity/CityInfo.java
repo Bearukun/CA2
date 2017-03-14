@@ -31,12 +31,24 @@ public class CityInfo implements Serializable {
     public CityInfo() {
     }
 
-    public CityInfo(Integer id, int zipCode, String city) {
-        this.id = id;
+    public CityInfo(int zipCode, String city, List<Address> address) {
         this.zipCode = zipCode;
         this.city = city;
+        this.address = address;
     }
 
+   
+
+    public List<Address> getAddress() {
+        return address;
+    }
+
+    public void setAddress(List<Address> address) {
+        this.address = address;
+    }
+
+    
+    
     public int getZipCode() {
         return zipCode;
     }
@@ -65,8 +77,10 @@ public class CityInfo implements Serializable {
 
     @Override
     public String toString() {
-        return "CityInfo{" + "id=" + id + ", zipCode=" + zipCode + ", city=" + city + '}';
+        return "CityInfo{" + "id=" + id + ", zipCode=" + zipCode + ", city=" + city + ", address=" + address + '}';
     }
+
+   
 
     
 

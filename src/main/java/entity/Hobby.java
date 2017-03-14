@@ -31,11 +31,25 @@ public class Hobby implements Serializable {
     public Hobby() {
     }
 
-    public Hobby(Integer id, String name, String description) {
-        this.id = id;
+    public Hobby(String name, String description, List<Person> persons) {
         this.name = name;
         this.description = description;
+        this.persons = persons;
     }
+
+   
+
+   
+
+    public List<Person> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
+    }
+    
+    
 
     public String getName() {
         return name;
@@ -63,8 +77,10 @@ public class Hobby implements Serializable {
 
     @Override
     public String toString() {
-        return "Hobby{" + "id=" + id + ", name=" + name + ", description=" + description + '}';
+        return "Hobby{" + "id=" + id + ", name=" + name + ", description=" + description + ", persons=" + persons + '}';
     }
+
+   
 
     
     
