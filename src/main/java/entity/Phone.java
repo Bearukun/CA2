@@ -24,6 +24,8 @@ public class Phone implements Serializable {
     private int number;
     private String description;
     
+   
+    
     @ManyToOne
     private InfoEntity infoEntity;
 
@@ -35,6 +37,13 @@ public class Phone implements Serializable {
         this.description = description;
         this.infoEntity = infoEntity;
     }
+
+    public Phone(int number, String description) {
+        this.number = number;
+        this.description = description;
+    }
+    
+    
 
     
   

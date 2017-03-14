@@ -1,16 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entity;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
@@ -25,11 +22,13 @@ public class Person implements Serializable {
     private Integer id;
     private String firstName, lastName;
     
-    @ManyToMany
+    @ManyToMany(mappedBy = "persons", cascade = CascadeType.ALL)
     private List<Hobby> hobbies;
     
     
-    @OneToOne(mappedBy = "person")
+   
+   
+    @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
     private InfoEntity infoEntity;
 
     public Person() {
@@ -41,6 +40,14 @@ public class Person implements Serializable {
         this.hobbies = hobbies;
         this.infoEntity = infoEntity;
     }
+
+    public Person(String firstName, String lastName, List<Hobby> hobbies) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.hobbies = hobbies;
+    }
+    
+    
     
 
     

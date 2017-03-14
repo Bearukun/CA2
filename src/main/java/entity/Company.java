@@ -6,6 +6,7 @@
 package entity;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +25,10 @@ public class Company implements Serializable {
     private int NumEmployees, cvr;
     private double marketValue;
     
-    @OneToOne(mappedBy = "company")
+ 
+    
+    
+    @OneToOne(mappedBy = "company", cascade = CascadeType.ALL)
     private InfoEntity infoEntity;
 
     public Company() {
@@ -38,6 +42,16 @@ public class Company implements Serializable {
         this.marketValue = marketValue;
         this.infoEntity = infoEntity;
     }
+
+    public Company(String name, String description, int NumEmployees, int cvr, double marketValue) {
+        this.name = name;
+        this.description = description;
+        this.NumEmployees = NumEmployees;
+        this.cvr = cvr;
+        this.marketValue = marketValue;
+    }
+    
+    
 
   
 
