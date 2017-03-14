@@ -20,8 +20,8 @@ public class Company implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String name, description, cvr;
-    private int NumEmployees;
+    private String name, description;
+    private int NumEmployees, cvr;
     private double marketValue;
     
     @OneToOne(mappedBy = "company")
@@ -30,7 +30,7 @@ public class Company implements Serializable {
     public Company() {
     }
 
-    public Company(String name, String description, String cvr, int NumEmployees, double marketValue, InfoEntity infoEntity) {
+    public Company(String name, String description, int cvr, int NumEmployees, double marketValue, InfoEntity infoEntity) {
         this.name = name;
         this.description = description;
         this.cvr = cvr;
@@ -67,11 +67,11 @@ public class Company implements Serializable {
         this.description = description;
     }
 
-    public String getCvr() {
+    public int getCvr() {
         return cvr;
     }
 
-    public void setCvr(String cvr) {
+    public void setCvr(int cvr) {
         this.cvr = cvr;
     }
 
