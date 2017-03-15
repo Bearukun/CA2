@@ -1,14 +1,13 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
 
 
 @Entity
@@ -18,12 +17,11 @@ public class Address implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    
     private String street, additionalInfo;
     
-    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
-    List<InfoEntity> infoEntity;
-    
-    @ManyToOne
+        
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private CityInfo cityInfo;
     
 
@@ -33,14 +31,6 @@ public class Address implements Serializable {
     public Address(String street, String additionalInfo) {
         this.street = street;
         this.additionalInfo = additionalInfo;
-    }
-
-    public List<InfoEntity> getInfoEntity() {
-        return infoEntity;
-    }
-
-    public void setInfoEntity(List<InfoEntity> infoEntity) {
-        this.infoEntity = infoEntity;
     }
 
     public CityInfo getCityInfo() {
@@ -77,11 +67,5 @@ public class Address implements Serializable {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "Address{" + "id=" + id + ", street=" + street + ", additionalInfo=" + additionalInfo + ", infoEntity=" + infoEntity + ", cityInfo=" + cityInfo + '}';
-    }
-
-    
     
 }

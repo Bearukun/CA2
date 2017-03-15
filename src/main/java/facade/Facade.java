@@ -29,10 +29,7 @@ public class Facade implements FacadeInterface {
     @Override
     public List<Person> getPersons() {
 
-        EntityManager em = emf.createEntityManager();
-        TypedQuery<Person> result = em.createNamedQuery("Person.findAll", Person.class);
-        List<Person> persons = result.getResultList();
-        return persons;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
     }
 

@@ -23,7 +23,7 @@ public class InfoEntity implements Serializable {
     @JoinColumn(name = "IE_ID")
     List<Phone> phones = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Address address;
 
     public InfoEntity() {

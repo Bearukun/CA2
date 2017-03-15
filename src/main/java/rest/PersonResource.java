@@ -1,10 +1,10 @@
 package rest;
 
+import com.google.gson.Gson;
 import entity.Person;
 import facade.Facade;
 import facade.FacadeInterface;
 import java.util.List;
-import utility.JSONConverter;
 import javax.persistence.Persistence;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -22,7 +22,7 @@ import javax.ws.rs.core.UriInfo;
 public class PersonResource {
 
     private FacadeInterface facade = new Facade();
-    private JSONConverter converter = new JSONConverter();
+    private static Gson gson = new Gson();
 
     @Context
     private UriInfo context;
@@ -47,7 +47,11 @@ public class PersonResource {
     public String getPerson(@PathParam("id") int id) {
 
        
-        return converter.getJSONFromPerson(facade.getPerson(id));
+        //return converter.getJSONFromPerson(facade.getPerson(id));
+        
+        
+        
+        return gson.toJson(facade.getPerson(id));
 
     }
 

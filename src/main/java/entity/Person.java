@@ -6,6 +6,7 @@ import javax.persistence.ManyToMany;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.FetchType;
 
 
 @Entity
@@ -16,7 +17,7 @@ public class Person extends InfoEntity implements Serializable {
     private String firstName, lastName;
     
     
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<Hobby> hobbies = new ArrayList<>();
     
     public Person() {
@@ -61,7 +62,9 @@ public class Person extends InfoEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "Person{" + "firstName=" + firstName + ", lastName=" + lastName + '}';
+        return "Person{" + "firstName=" + firstName + ", lastName=" + lastName + ", hobbies=" + hobbies.get(0).getName() + '}';
     }
+
+    
     
 }

@@ -1,6 +1,8 @@
 package utility;
 
 import com.google.gson.Gson;
+import entity.Address;
+import entity.CityInfo;
 import entity.Hobby;
 import entity.Person;
 import entity.Phone;
@@ -19,9 +21,9 @@ public class DatabaseInit {
 
         DatabaseInit bdI = new DatabaseInit();
 
-        //bdI.initiateSystem();
+        bdI.initiateSystem();
 
-        //bdI.testAdd();
+        bdI.testAdd();
 
         Facade f = new Facade();
         f.addEntityManagerFactory(Persistence.createEntityManagerFactory("pu"));
@@ -44,12 +46,26 @@ public class DatabaseInit {
         try {
 
             em.getTransaction().begin();
+            
+            CityInfo city = new CityInfo(3480, "Fredensborg");
+            
+            em.persist(city);
+            
+            
 
             Person person = new Person("Ulla", "Jensen", "test@mail.dk");
 
             person.addHobby(new Hobby("Racing", "Drifting around"));
 
             person.addPhone(new Phone(87676543, "Home"));
+            
+            Address adr = new Address("Kongevejen", "Stort hus");
+            adr.setCityInfo(city);
+                    
+            
+            person.setAddress(adr);
+            
+            
 
             em.persist(person);
 
