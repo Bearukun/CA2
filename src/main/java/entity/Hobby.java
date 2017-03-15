@@ -17,7 +17,7 @@ public class Hobby implements Serializable {
     
     
     @ManyToMany(mappedBy = "hobbies", cascade = CascadeType.PERSIST)
-    private List<Person> persons = new ArrayList<>();
+    private transient List<Person> persons = new ArrayList<>();
 
     
     public Hobby() {
