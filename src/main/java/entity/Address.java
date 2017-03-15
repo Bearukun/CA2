@@ -18,7 +18,7 @@ public class Address implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String street, AdditionalInfo;
+    private String street, additionalInfo;
     
     @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
     List<InfoEntity> infoEntity;
@@ -30,22 +30,10 @@ public class Address implements Serializable {
     public Address() {
     }
 
-    public Address(String street, String AdditionalInfo, List<InfoEntity> infoEntity, CityInfo cityInfo) {
+    public Address(String street, String additionalInfo) {
         this.street = street;
-        this.AdditionalInfo = AdditionalInfo;
-        this.infoEntity = infoEntity;
-        this.cityInfo = cityInfo;
+        this.additionalInfo = additionalInfo;
     }
-
-    public Address(String street, String AdditionalInfo, CityInfo cityInfo) {
-        this.street = street;
-        this.AdditionalInfo = AdditionalInfo;
-        this.cityInfo = cityInfo;
-    }
-    
-    
-
-   
 
     public List<InfoEntity> getInfoEntity() {
         return infoEntity;
@@ -62,8 +50,7 @@ public class Address implements Serializable {
     public void setCityInfo(CityInfo cityInfo) {
         this.cityInfo = cityInfo;
     }
-    
-    
+
 
     public String getStreet() {
         return street;
@@ -74,12 +61,13 @@ public class Address implements Serializable {
     }
 
     public String getAdditionalInfo() {
-        return AdditionalInfo;
+        return additionalInfo;
     }
 
-    public void setAdditionalInfo(String AdditionalInfo) {
-        this.AdditionalInfo = AdditionalInfo;
+    public void setAdditionalInfo(String additionalInfo) {
+        this.additionalInfo = additionalInfo;
     }
+
     
     public Integer getId() {
         return id;
@@ -91,10 +79,8 @@ public class Address implements Serializable {
 
     @Override
     public String toString() {
-        return "Address{" + "id=" + id + ", street=" + street + ", AdditionalInfo=" + AdditionalInfo + ", infoEntity=" + infoEntity + ", cityInfo=" + cityInfo + '}';
+        return "Address{" + "id=" + id + ", street=" + street + ", additionalInfo=" + additionalInfo + ", infoEntity=" + infoEntity + ", cityInfo=" + cityInfo + '}';
     }
-
-    
 
     
     

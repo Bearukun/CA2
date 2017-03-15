@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entity;
 
 import java.io.Serializable;
@@ -24,39 +19,22 @@ public class Phone implements Serializable {
     private int number;
     private String description;
     
-   
-    
-    @ManyToOne
-    private InfoEntity infoEntity;
 
     public Phone() {
-    }
-
-    public Phone(int number, String description, InfoEntity infoEntity) {
-        this.number = number;
-        this.description = description;
-        this.infoEntity = infoEntity;
     }
 
     public Phone(int number, String description) {
         this.number = number;
         this.description = description;
     }
-    
-    
 
-    
-  
-
-    public InfoEntity getInfoEntity() {
-        return infoEntity;
+    public Integer getId() {
+        return id;
     }
 
-    public void setInfoEntity(InfoEntity infoEntity) {
-        this.infoEntity = infoEntity;
+    public void setId(Integer id) {
+        this.id = id;
     }
-    
-    
 
     public int getNumber() {
         return number;
@@ -73,22 +51,10 @@ public class Phone implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     @Override
     public String toString() {
-        return "Phone{" + "id=" + id + ", number=" + number + ", description=" + description + ", infoEntity=" + infoEntity + '}';
+        return "Phone{" + "id=" + id + ", number=" + number + ", description=" + description + '}';
     }
-
-
-
-   
     
 }

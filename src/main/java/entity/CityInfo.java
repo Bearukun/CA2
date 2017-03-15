@@ -1,18 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entity;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+
 
 
 @Entity
@@ -25,38 +18,23 @@ public class CityInfo implements Serializable {
     private int zipCode;
     private String city;
     
-    @OneToMany(mappedBy = "cityInfo", cascade = CascadeType.ALL)
-    List<Address> address;
-    
 
     public CityInfo() {
-    }
-
-    public CityInfo(int zipCode, String city, List<Address> address) {
-        this.zipCode = zipCode;
-        this.city = city;
-        this.address = address;
     }
 
     public CityInfo(int zipCode, String city) {
         this.zipCode = zipCode;
         this.city = city;
     }
-    
-    
 
-   
-
-    public List<Address> getAddress() {
-        return address;
+    public Integer getId() {
+        return id;
     }
 
-    public void setAddress(List<Address> address) {
-        this.address = address;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    
-    
     public int getZipCode() {
         return zipCode;
     }
@@ -72,25 +50,5 @@ public class CityInfo implements Serializable {
     public void setCity(String city) {
         this.city = city;
     }
-            
     
-    
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    @Override
-    public String toString() {
-        return "CityInfo{" + "id=" + id + ", zipCode=" + zipCode + ", city=" + city + ", address=" + address + '}';
-    }
-
-   
-
-    
-
-
 }

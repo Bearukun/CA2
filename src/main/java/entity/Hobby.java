@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,43 +19,36 @@ public class Hobby implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name, description;
+    
+    private Person person;
+    
+    @ManyToMany(mappedBy = "hobbies")
+    private List<Person> persons = new ArrayList();
 
-    
-  
-    @ManyToMany
-    List<Person> persons;
-    
-    
     
     public Hobby() {
-    }
-
-    public Hobby(String name, String description, List<Person> persons) {
-        this.name = name;
-        this.description = description;
-        this.persons = persons;
     }
 
     public Hobby(String name, String description) {
         this.name = name;
         this.description = description;
     }
-    
-    
 
-   
-
-   
-
-    public List<Person> getPersons() {
-        return persons;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setPersons(List<Person> persons) {
-        this.persons = persons;
+    public void setPerson(Person person) {
+        this.person = person;
     }
     
-    
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -75,21 +65,14 @@ public class Hobby implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    public Integer getId() {
-        return id;
+
+    public List<Person> getPersons() {
+        return persons;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
     }
-
-    @Override
-    public String toString() {
-        return "Hobby{" + "id=" + id + ", name=" + name + ", description=" + description + ", persons=" + persons + '}';
-    }
-
-   
 
     
     

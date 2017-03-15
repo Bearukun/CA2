@@ -7,73 +7,54 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+
 
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class InfoEntity implements Serializable {
-
-    
-   
     
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
     private String email;
     
-    
-   
-    @OneToOne
-    private Person person;
-    
-    
-    
-    
-    @OneToOne
-    private Company company;
-    
-    
-    @OneToMany(mappedBy = "infoEntity" , cascade = CascadeType.ALL)
+    @OneToMany()
+    @JoinColumn(name = "infoEntity_Id")
     List<Phone> phones;
     
     @ManyToOne
     private Address address;
-    
-    
 
     public InfoEntity() {
     }
 
-    public InfoEntity(String email, Person person, Company company, List<Phone> phones, Address address) {
+    public InfoEntity(String email) {
         this.email = email;
-        this.person = person;
-        this.company = company;
-        this.phones = phones;
-        this.address = address;
     }
 
-   
-
-  
-
-    public Person getPerson() {
-        return person;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Company getCompany() {
-        return company;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCompany(Company company) {
-        this.company = company;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public List<Phone> getPhones() {
@@ -91,34 +72,12 @@ public class InfoEntity implements Serializable {
     public void setAddress(Address address) {
         this.address = address;
     }
+
     
     
-    
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     @Override
     public String toString() {
-        return "InfoEntity{" + "id=" + id + ", email=" + email + ", person=" + person + ", company=" + company + ", phones=" + phones + ", address=" + address + '}';
+        return "InfoEntity{" + "id=" + id + ", email=" + email + ", phones=" + phones + ", address=" + address + '}';
     }
-
-   
-    
-    
-    
-
     
 }
