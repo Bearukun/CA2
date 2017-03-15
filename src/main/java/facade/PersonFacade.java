@@ -62,7 +62,7 @@ public class PersonFacade implements PersonFacadeInterface {
             
             jo.addProperty("id", query.getResultList().get(i).getId());
             jo.addProperty("firstName", query.getResultList().get(i).getFirstName());
-            jo.addProperty("firstName", query.getResultList().get(i).getLastName());
+            jo.addProperty("lastName", query.getResultList().get(i).getLastName());
             jo.addProperty("email", query.getResultList().get(i).getEmail());
             
             JsonArray phones = new JsonArray();
@@ -104,7 +104,7 @@ public class PersonFacade implements PersonFacadeInterface {
             
             jo.addProperty("id", person.getId());
             jo.addProperty("firstName", person.getFirstName());
-            jo.addProperty("firstName", person.getLastName());
+            jo.addProperty("lastName", person.getLastName());
             jo.addProperty("email", person.getEmail());
             
             JsonArray phones = new JsonArray();
