@@ -13,6 +13,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import facade.PersonFacadeInterface;
+import javax.ws.rs.DELETE;
 
 /**
  * REST Web Service
@@ -39,9 +40,9 @@ public class PersonResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersons() {
-        
+
         return gson.toJson(facade.getPersons());
-        
+
     }
 
     /**
@@ -57,7 +58,7 @@ public class PersonResource {
         return gson.toJson(facade.getPerson(id));
 
     }
-    
+
     /**
      * Method to return a specific person object from the mySQL database.
      *
@@ -71,8 +72,8 @@ public class PersonResource {
         return gson.toJson(facade.getPersonsContactinfo());
 
     }
-    
-        /**
+
+    /**
      * Method to return a specific person object from the mySQL database.
      *
      * @return A list with every object in JSON format.
@@ -86,4 +87,15 @@ public class PersonResource {
 
     }
 
+
+
+
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deletePerson(@PathParam("id") int id) {
+        
+        return gson.toJson(facade.deletePerson(id));
+        
+    }
 }

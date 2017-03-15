@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 public class PersonFacade implements PersonFacadeInterface {
@@ -47,86 +48,111 @@ public class PersonFacade implements PersonFacadeInterface {
         return query.getResultList();
 
     }
-    
+
     @Override
     public List<JsonObject> getPersonsContactinfo() {
 
         List<JsonObject> contactinfo = new ArrayList();
-        
+
         EntityManager em = emf.createEntityManager();
         TypedQuery<Person> query = em.createQuery("SELECT p FROM Person p", Person.class);
-        
+
         for (int i = 0; i < query.getResultList().size(); i++) {
-            
+
             JsonObject jo = new JsonObject();
-            
+
             jo.addProperty("id", query.getResultList().get(i).getId());
             jo.addProperty("firstName", query.getResultList().get(i).getFirstName());
             jo.addProperty("lastName", query.getResultList().get(i).getLastName());
             jo.addProperty("email", query.getResultList().get(i).getEmail());
-            
+
             JsonArray phones = new JsonArray();
-            
+
             for (int j = 0; j < query.getResultList().get(i).getPhones().size(); j++) {
-                
+
                 JsonObject phone = new JsonObject();
-                
+
                 phone.addProperty("id", query.getResultList().get(i).getPhones().get(j).getId());
                 phone.addProperty("number", query.getResultList().get(i).getPhones().get(j).getNumber());
                 phone.addProperty("description", query.getResultList().get(i).getPhones().get(j).getDescription());
-                
+
                 phones.add(phone);
-                                
+
             }
-            
+
             jo.add("phones", phones);
-            
-            
+
             contactinfo.add(jo);
-            
-            
-            
+
         }
-        
+
         return contactinfo;
 
     }
-    
+
     @Override
     public JsonObject getPersonsContactinfo(int id) {
 
         EntityManager em = emf.createEntityManager();
         Person person = em.find(Person.class, id);
-        
-        
-        
+
         JsonObject jo = new JsonObject();
-            
-            jo.addProperty("id", person.getId());
-            jo.addProperty("firstName", person.getFirstName());
-            jo.addProperty("lastName", person.getLastName());
-            jo.addProperty("email", person.getEmail());
-            
-            JsonArray phones = new JsonArray();
-            
-            for (int j = 0; j < person.getPhones().size(); j++) {
-                
-                JsonObject phone = new JsonObject();
-                
-                phone.addProperty("id", person.getPhones().get(j).getId());
-                phone.addProperty("number", person.getPhones().get(j).getNumber());
-                phone.addProperty("description", person.getPhones().get(j).getDescription());
-                
-                phones.add(phone);
-                                
-            }
-            
-            jo.add("phones", phones);
-            
-        return jo;   
+
+        jo.addProperty("id", person.getId());
+        jo.addProperty("firstName", person.getFirstName());
+        jo.addProperty("lastName", person.getLastName());
+        jo.addProperty("email", person.getEmail());
+
+        JsonArray phones = new JsonArray();
+
+        for (int j = 0; j < person.getPhones().size(); j++) {
+
+            JsonObject phone = new JsonObject();
+
+            phone.addProperty("id", person.getPhones().get(j).getId());
+            phone.addProperty("number", person.getPhones().get(j).getNumber());
+            phone.addProperty("description", person.getPhones().get(j).getDescription());
+
+            phones.add(phone);
+
+        }
+
+        jo.add("phones", phones);
+
+        return jo;
 
     }
 
- 
+    @Override
+    public JsonObject deletePerson(int id) {
+
+        EntityManager em = emf.createEntityManager();
+
+        Person person = null;
+        
+        try {
+            
+            em.getTransaction().begin();
+            person = em.merge(em.find(Person.class, id));
+            em.remove(person);
+            em.getTransaction().commit();
+            
+        } catch (PersistenceException e) {
+            
+            em.getTransaction().rollback();
+            
+        } finally {
+            
+            em.close();
+            
+        }
+
+        JsonObject jo = new JsonObject();
+
+        jo.addProperty("message", "Person: " + person.getFirstName() + " with id: " + id + " has been removed.");
+
+        return jo;
+
+    }
 
 }
