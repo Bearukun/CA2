@@ -6,7 +6,7 @@ import entity.CityInfo;
 import entity.Hobby;
 import entity.Person;
 import entity.Phone;
-import facade.Facade;
+import facade.PersonFacade;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,11 +21,11 @@ public class DatabaseInit {
 
         DatabaseInit bdI = new DatabaseInit();
 
-        bdI.initiateSystem();
+//        bdI.initiateSystem();
+//
+//        bdI.testAdd();
 
-        bdI.testAdd();
-
-        Facade f = new Facade();
+        PersonFacade f = new PersonFacade();
         f.addEntityManagerFactory(Persistence.createEntityManagerFactory("pu"));
         Gson gson = new Gson();
         System.out.println(gson.toJson(f.getPerson(1)));
