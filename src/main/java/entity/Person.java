@@ -26,7 +26,6 @@ public class Person extends InfoEntity implements Serializable {
         super(email);
         this.firstName = firstName;
         this.lastName = lastName;
-        this.hobbies = hobbies;
     }
     
     public void addHobby(Hobby hobby){

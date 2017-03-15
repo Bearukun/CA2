@@ -47,6 +47,7 @@ public class DatabaseInit {
         
             person.addHobby(new Hobby("Racing", "Drifting around"));
             
+            person.addPhone(new Phone(87676543, "Home"));
 
             em.persist(person);
             
