@@ -22,9 +22,7 @@ public class Facade implements FacadeInterface {
     public Person getPerson(int id) {
 
         EntityManager em = emf.createEntityManager();
-        TypedQuery<Person> result = em.createNamedQuery("Person.findById", Person.class);
-        Person person = result.setParameter("id", id).getSingleResult();
-        return person;
+        return em.find(Person.class, id);
 
     }
 

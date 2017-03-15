@@ -1,39 +1,28 @@
 package entity;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
 
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class InfoEntity implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
-    private String email;
-    
 
-    
-    
-    @OneToMany(mappedBy = "infoEntity", targetEntity = Phone.class, cascade = CascadeType.ALL)
-    List<Phone> phones = new ArrayList();
-    
+    private String email;
+
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "IE_ID")
+    List<Phone> phones = new ArrayList<>();
+
     @ManyToOne
     private Address address;
 
@@ -43,13 +32,12 @@ public class InfoEntity implements Serializable {
     public InfoEntity(String email) {
         this.email = email;
     }
-    
-    public void addPhone(Phone phone){
-        
-        
+
+    public void addPhone(Phone phone) {
+
+
         this.phones.add(phone);
-        phone.setInfoEntity(this);
-        
+
     }
 
     public Integer getId() {
@@ -84,11 +72,11 @@ public class InfoEntity implements Serializable {
         this.address = address;
     }
 
-    
-    
+
     @Override
     public String toString() {
-        return "InfoEntity{" + "id=" + id + ", email=" + email + ", phones=" + phones + ", address=" + address + '}';
+        return "InfoEntity{" + "id=" + id + ", email=" + email + ", phones="
+                + phones + ", address=" + address + '}';
     }
-    
+
 }

@@ -1,12 +1,10 @@
 package entity;
 
-import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
 
 @Entity
@@ -19,8 +17,6 @@ public class Phone implements Serializable {
     
     private int number;
     private String description;
-    @ManyToOne
-    private InfoEntity infoEntity;
     
    
     
@@ -33,13 +29,6 @@ public class Phone implements Serializable {
         this.description = description;
     }
 
-    public InfoEntity getInfoEntity() {
-        return infoEntity;
-    }
-
-    public void setInfoEntity(InfoEntity infoEntity) {
-        this.infoEntity = infoEntity;
-    }
 
     public Integer getId() {
         return id;

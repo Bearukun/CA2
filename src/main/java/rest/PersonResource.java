@@ -4,16 +4,15 @@ import entity.Person;
 import facade.Facade;
 import facade.FacadeInterface;
 import java.util.List;
+import utility.JSONConverter;
 import javax.persistence.Persistence;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.Produces;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import utility.JSONConverter;
+import javax.ws.rs.core.UriInfo;
 
 /**
  * REST Web Service
@@ -38,16 +37,17 @@ public class PersonResource {
     }
 
     /**
-     * Method to return every person object on the mySQL database.
+     * Method to return a specific person object from the mySQL database.
      *
      * @return A list with every object in JSON format.
      */
     @GET
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPersons() {
+    public String getPerson(@PathParam("id") int id) {
 
-        List<Person> people = facade.getPersons();
-        return converter.getJSONFromPerson(people);
+       
+        return converter.getJSONFromPerson(facade.getPerson(id));
 
     }
 

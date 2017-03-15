@@ -24,7 +24,7 @@ public class JSONConverter {
         
     }
 
-    public String getJSONFromPerson(List<Person> persons) {
+    public String getJSONFromPersons(List<Person> persons) {
         
         return gson.toJson(persons);
         

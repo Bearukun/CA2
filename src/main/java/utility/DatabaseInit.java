@@ -1,14 +1,11 @@
 package utility;
 
-import entity.Address;
-import entity.CityInfo;
-import entity.Company;
+import com.google.gson.Gson;
 import entity.Hobby;
-import entity.InfoEntity;
 import entity.Person;
 import entity.Phone;
-import java.util.ArrayList;
-import java.util.List;
+import facade.Facade;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -22,9 +19,14 @@ public class DatabaseInit {
 
         DatabaseInit bdI = new DatabaseInit();
 
-        bdI.initiateSystem();
+        //bdI.initiateSystem();
 
-        bdI.testAdd();
+        //bdI.testAdd();
+
+        Facade f = new Facade();
+        f.addEntityManagerFactory(Persistence.createEntityManagerFactory("pu"));
+        Gson gson = new Gson();
+        System.out.println(gson.toJson(f.getPerson(1)));
     }
 
     public void initiateSystem() {
@@ -44,13 +46,12 @@ public class DatabaseInit {
             em.getTransaction().begin();
 
             Person person = new Person("Ulla", "Jensen", "test@mail.dk");
-        
+
             person.addHobby(new Hobby("Racing", "Drifting around"));
-            
+
             person.addPhone(new Phone(87676543, "Home"));
 
             em.persist(person);
-            
 
             em.getTransaction().commit();
 
