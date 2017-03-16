@@ -19,5 +19,7 @@ public interface PersonFacadeInterface {
     public List<JsonObject> getPersonsContactinfo();
 
     public JsonObject getPersonsContactinfo(int id);
+    
+    public JsonObject deletePerson(int id);
 
 }
