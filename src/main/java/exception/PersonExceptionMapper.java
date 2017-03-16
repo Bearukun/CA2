@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sun.jersey.spi.inject.Errors.ErrorMessage;
+import facade.PersonFacade;
+import javax.persistence.Persistence;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
@@ -12,22 +14,54 @@ import jdk.nashorn.internal.runtime.regexp.joni.exception.ErrorMessages;
 @Provider
 public class PersonExceptionMapper implements ExceptionMapper<Exception> {
 
+    public PersonExceptionMapper() {
+        
+         fc.addEntityManagerFactory(Persistence.createEntityManagerFactory("pu"));
+    }
+
+    
     Gson gson = new Gson();
+    PersonFacade fc = new PersonFacade();
 
     @Override
     public Response toResponse(Exception e) {
         JsonObject jo = new JsonObject();
 
+        //400 - Basic 400, will not work
         if (e.getMessage().equalsIgnoreCase("400")) {
             jo.addProperty("HTTP Status", "400");
             jo.addProperty("Reason", "The server cannot or will not process the request due to an apparent client error");
+            return Response.status(400).entity(gson.toJson(jo)).build();
+
+        }//400 - if firstname, lastname, email is not filled-out correctly.
+        else if (e.getMessage().equalsIgnoreCase("400" + "addStep1")) {
+            jo.addProperty("HTTP Status", "400");
+            jo.addProperty("Reason", "The server cannot or will not process the request due to an apparent client error");
+            jo.addProperty("Solution", "Remember to make sure that the input in"
+                    + " either First Name, Last name or email is not 'null' or empty.");
+            return Response.status(400).entity(gson.toJson(jo)).build();
+
+        } //400 - if Address is not filled-out correctly
+        else if (e.getMessage().equalsIgnoreCase("400" + "addStep2")) {
+            jo.addProperty("HTTP Status", "400");
+            jo.addProperty("Reason", "The server cannot or will not process the request due to an apparent client error");
+            jo.addProperty("Solution", "Remember to make sure that the inputfields in"
+                    + " the Address are not 'null' or empty.");
+            return Response.status(400).entity(gson.toJson(jo)).build();
+
+        }//400 - if no phone has been added
+        else if (e.getMessage().equalsIgnoreCase("400" + "addStepPhone")) {
+            jo.addProperty("HTTP Status", "400");
+            jo.addProperty("Reason", "The server cannot or will not process the request due to an apparent client error");
+            jo.addProperty("Solution", "Remember to make sure that you input atleast one phone and suiting"
+                    + "description, and that the phone field is not 'null' or empty.");
             return Response.status(400).entity(gson.toJson(jo)).build();
 
         } //404 - Page Not found
         else if (e.getMessage().equalsIgnoreCase("404")) {
             jo.addProperty("HTTP Status", "404");
             jo.addProperty("Reason", "The requested resource could not be found with the given parameter!");
-
+            jo.addProperty("Solution", "Try using a parameter between 1 and " + fc.getPersons().size());
 //Following for-loop prints the Stack Trace 
 //            for (int i = 0; i < Thread.currentThread().getStackTrace().length; i++) {
 //            jo.addProperty("StackTrace" + i, Thread.currentThread().getStackTrace()[i].toString());
