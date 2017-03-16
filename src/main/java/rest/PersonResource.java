@@ -91,8 +91,8 @@ public class PersonResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonsContactinfo() throws PersonException {
         int pSize = facade.getPersons().size();
-        if( pSize < 0){
-        throw new PersonException("500");
+        if (pSize < 0) {
+            throw new PersonException("500");
         }
         return gson.toJson(facade.getPersonsContactinfo());
 
@@ -106,7 +106,7 @@ public class PersonResource {
     @GET
     @Path("/contactinfo/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPersonContactinfo(@PathParam("id") int id) throws PersonException{
+    public String getPersonContactinfo(@PathParam("id") int id) throws PersonException {
 
         Person person = facade.getPerson(id);
         System.out.println("Hello! " + person);
@@ -123,60 +123,95 @@ public class PersonResource {
         } catch (NumberFormatException e) {
 
             return "";
-        
 
-    }
+        }
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public String addPerson(String json) throws PersonException{
-        
+    public String addPerson(String json) throws PersonException {
+
         Person person = gson.fromJson(json, Person.class);
-        
+
         //check if the required name and email information has been added
-        if (person.getFirstName() == null || 
-                person.getLastName() == null ||
-                person.getEmail() == null) {
+        if (person.getFirstName() == null
+                || person.getLastName() == null
+                || person.getEmail() == null) {
             System.out.println("Person not added: Failed Step 1");
             throw new PersonException("400" + "addStep1");
-        } 
-        //Check if the required adress informatino has been added
-        else if ( person.getAddress().getAdditionalInfo() == null || 
-                person.getAddress().getCityInfo() == null ||
-                person.getAddress().getStreet() == null){
-             System.out.println("Person not added: Failed Step 2");
+        } //Check if the required adress informatino has been added
+        else if (person.getAddress().getAdditionalInfo() == null
+                || person.getAddress().getCityInfo() == null
+                || person.getAddress().getStreet() == null) {
+            System.out.println("Person not added: Failed Step 2");
             throw new PersonException("400" + "addStep2");
-            
-        } 
-        //Check if any phones has been added
-        else if (person.getPhones().get(0) == null){
-             System.out.println("Person not added: Failed Phone Step");
+
+        } //Check if any phones has been added
+        else if (person.getPhones().get(0) == null) {
+            System.out.println("Person not added: Failed Phone Step");
             throw new PersonException("400" + "addStepPhone");
-        } else
-        
-        System.out.println("Person succesfully added");
+        }
+
         facade.addPerson(person);
+        System.out.println("Person succesfully added");
         return gson.toJson(person);
-        
+
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public String editPerson(String json) {
-        
+    public String editPerson(String json) throws PersonException {
+
         Person person = gson.fromJson(json, Person.class);
-        facade.editPerson(person);
+        //check if the required name and email information has been edited correctly
+        if (person.getFirstName() == null
+                || person.getLastName() == null
+                || person.getEmail() == null) {
+            System.out.println("Person not added: Failed Step 1");
+            throw new PersonException("400" + "addStep1");
+        } //Check if the required adress informatino has been edited correctly
+        else if (person.getAddress().getAdditionalInfo() == null
+                || person.getAddress().getCityInfo() == null
+                || person.getAddress().getStreet() == null) {
+            System.out.println("Person not added: Failed Step 2");
+            throw new PersonException("400" + "addStep2");
+
+        } //Check if the basic phone has been edited correctly
+        else if (person.getPhones().get(0) == null) {
+            System.out.println("Person not added: Failed Phone Step");
+            throw new PersonException("400" + "addStepPhone");
+        }
+
+        try {
+
+            facade.editPerson(person);
+
+        } catch (NumberFormatException e) {
+
+            return "";
+
+        }
+
         return gson.toJson(person);
-        
+
     }
 
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String deletePerson(@PathParam("id") int id) {
+    public String deletePerson(@PathParam("id") int id) throws PersonException {
 
-        return gson.toJson(facade.deletePerson(id));
+        Person person = facade.getPerson(id);
+
+        if (person == null) {
+            throw new PersonException("404");
+        }
+        try {
+
+            return gson.toJson(facade.deletePerson(id));
+        } catch (Exception e) {
+            return "";
+        }
 
     }
 }
