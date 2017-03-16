@@ -2,8 +2,7 @@ var btn = document.getElementById("btn");
 var tbody = document.getElementById("bodyT");
 
 var people;
-var phoneP;
-
+var fetchedPerson;
 
 
 function fetchPeople() {
@@ -40,10 +39,10 @@ function listMaker(arr) {
                 "<td>" + people.address.street + "<br>"
                 + people.address.cityInfo.city  + "<br>"
                 + people.address.cityInfo.zipCode + "<br>"
-                + "<b><i>Description:</b></i><br>" + people.address.additionalInfo + "</td>" +
+                + "<b><i>Additional info:</b></i><br>" + people.address.additionalInfo + "</td>" +
                 "<td>" + getPhones(people.phones) + "</td>" +
-                "<td>" + "<a href= \"\" onclick=\"removePerson(" + people.id + ");return false;\">delete</a>" +
-                " \\ " + "<a href= \"\" data-toggle=\"modal\" data-target=\"#myEditModal\" onclick=\"fetchPerson(" + people.id + ");return false;\">edit</a>" + "</td>" +
+                "<td>" + "<a href= \"\" onclick=\"removePerson(" + people.id + ");return false;\">Delete</a>" +
+                " <br> " + "<a href= \"\" data-toggle=\"modal\" data-target=\"#myEditModal\" onclick=\"fetchPerson(" + people.id + ");return false;\">Edit</a>" + "</td>" +
                 "</tr>";
 
     });
@@ -75,8 +74,6 @@ function getPhones(phoneNumbers){
     return tempString;
     
 }
-
-
 function addPerson() {
     var fName = document.getElementById("fName");
     var lName = document.getElementById("lName");
@@ -106,9 +103,7 @@ function addPerson() {
 
         fetchPeople();
     });
-}
-;
-
+};
 function removePerson(id) {
 
     var url = "http://localhost:8084/CA2/api/Person/" + id;
@@ -129,10 +124,9 @@ function removePerson(id) {
 
 
 }
-
 function fetchPerson(id) {
 
-    var url = "http://localhost:8084/CA2/api/Person" + id;
+    var url = "http://localhost:8084/CA2/api/Person/" + id;
     var conf = {method: 'get'};
     var promise = fetch(url, conf);
 
@@ -142,19 +136,30 @@ function fetchPerson(id) {
 
     }).then(function (text) {
         var person = JSON.parse(text);
+        fetchedPerson = person;
         document.getElementById("eid").value = person.id;
-        document.getElementById("efName").value = person.fName;
-        document.getElementById("elName").value = person.lName;
-        document.getElementById("ePhone").value = person.phone;
+        document.getElementById("efirstName").value = person.firstName;
+        document.getElementById("elastName").value = person.lastName;
+        document.getElementById("eemail").value = person.email;
+        document.getElementById("estreet").value = person.address.street;
+        document.getElementById("ecity").value = person.address.cityInfo.city;
+        document.getElementById("ezipCode").value = person.address.cityInfo.zipCode;
+        document.getElementById("eadditionalInfo").value = person.address.additionalInfo;
 
     });
 }
 
 function editPerson() {
-    var id = document.getElementById("eid");
-    var fName = document.getElementById("efName");
-    var lName = document.getElementById("elName");
-    var phone = document.getElementById("ePhone");
+    
+    fetchedPerson.firstName = document.getElementById("efirstName").value;
+    fetchedPerson.lastName = document.getElementById("elastName").value;
+    fetchedPerson.email = document.getElementById("eemail").value;
+    fetchedPerson.address.street = document.getElementById("estreet").value;
+    fetchedPerson.address.cityInfo.city = document.getElementById("ecity").value;
+    fetchedPerson.address.cityInfo.zipCode = document.getElementById("ezipCode").value;
+    fetchedPerson.address.additionalInfo = document.getElementById("eadditionalInfo").value;
+
+    console.log(fetchedPerson.firstName);
 
     var url = "http://localhost:8084/CA2/api/Person";
     var conf = {method: 'PUT',
@@ -164,14 +169,11 @@ function editPerson() {
                     'Content-Type': 'application/JSON'
                 },
 
-        body: JSON.stringify({
-            id: id.value.toString(),
-            fName: fName.value.toString(),
-            lName: lName.value.toString(),
-            phone: phone.value.toString()
-
-        })
+        body: JSON.stringify(fetchedPerson)
     };
+    
+    
+    
     var promise = fetch(url, conf);
 
     promise.then(function (response) {

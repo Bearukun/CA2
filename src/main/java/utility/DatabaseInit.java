@@ -89,6 +89,7 @@ public class DatabaseInit {
         fName.add("Shigeru");
         fName.add("Phil");
         fName.add("Hironobu");
+        fName.add("Albert");
 
         lName.add("Drake");
         lName.add("Wake");
@@ -118,6 +119,8 @@ public class DatabaseInit {
         lName.add("Miyamoto");
         lName.add("Spencer");
         lName.add("Sakaguchi");
+        lName.add("Wesker");
+        lName.add("Schwarzenegger");
 
         email.add("wakaman" + randInt(1, 99));
         email.add("bk" + randInt(1, 99));
