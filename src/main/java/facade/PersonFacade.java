@@ -2,7 +2,6 @@ package facade;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import entity.Company;
 import entity.Person;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,15 +12,22 @@ import javax.persistence.TypedQuery;
 
 public class PersonFacade implements PersonFacadeInterface {
 
+    //Interface used to interact with the entity manager facotry for the persistence unit. 
     private EntityManagerFactory emf;
 
     @Override
     public void addEntityManagerFactory(EntityManagerFactory emf) {
-
+        
+        //Adding the entityManagerFactory to PersonFacade. 
         this.emf = emf;
 
     }
 
+    /**
+     * Method used to get a person from the database.
+     * @param id Id of the person to be fetched.
+     * @return Returns a Person object corresponding to the given id.
+     */
     @Override
     public Person getPerson(int id) {
 
@@ -30,6 +36,10 @@ public class PersonFacade implements PersonFacadeInterface {
 
     }
 
+    /**
+     * Method to retrieve all persons from the database.
+     * @return Returns a list of Person(s).
+     */
     @Override
     public List<Person> getPersons() {
 
@@ -39,16 +49,28 @@ public class PersonFacade implements PersonFacadeInterface {
 
     }
 
+    /**
+     * Method used to get persons with a specific zip code.
+     * @param zipCode int used to specify what zipcode we want persons from.
+     * @return Returns a list of Person(s) with the specified zipCode.
+     */
     @Override
     public List<Person> getPersons(int zipCode) {
 
         EntityManager em = emf.createEntityManager();
+        //Create a query, that selects Persons where the zipcode matches with the given zipcode.
         TypedQuery<Person> query = em.createQuery("SELECT p FROM Person p WHERE p.address .city.zipCode = :zipCode", Person.class);
+        //Set parameter
         query.setParameter("zipCode", zipCode);
+        //Execute and return
         return query.getResultList();
 
     }
 
+    /**
+     * Method to retrieve all persons contactinfo.
+     * @return Returns a list of custom Json object with contact information.
+     */
     @Override
     public List<JsonObject> getPersonsContactinfo() {
 
@@ -90,6 +112,11 @@ public class PersonFacade implements PersonFacadeInterface {
 
     }
 
+    /**
+     * Method used to get the contact information from a specific user.
+     * @param id id used to specify what user we want.
+     * @return Returns a custom JsonObject with the desired information.
+     */
     @Override
     public JsonObject getPersonsContactinfo(int id) {
 
@@ -123,6 +150,11 @@ public class PersonFacade implements PersonFacadeInterface {
 
     }
 
+    /**
+     * Method used to delete a person from the databse.
+     * @param id Id of the persons that needs to be removed. 
+     * @return Returns a json object that tells that the user has been removed.
+     */
     @Override
     public JsonObject deletePerson(int id) {
 
@@ -187,10 +219,16 @@ public class PersonFacade implements PersonFacadeInterface {
 
     }
 
+    /**
+     * Method to edit a person.
+     * @param person Person object that has been edited.
+     * @return Returns a custom jsonObject that tells the person has been edited.
+     */
     @Override
-    public String editPerson(Person person) {
+    public JsonObject editPerson(Person person) {
 
         EntityManager em = emf.createEntityManager();
+        JsonObject jo = new JsonObject();
 
         try {
 
@@ -201,11 +239,13 @@ public class PersonFacade implements PersonFacadeInterface {
         } catch (PersistenceException ex) {
 
             em.getTransaction().rollback();
-            return ex.getMessage();
+            jo.addProperty("error", ex.getMessage());
 
         }
-        
-        return "OK";
+
+        jo.addProperty("message", "Person has been edited");
+
+        return jo;
 
     }
 

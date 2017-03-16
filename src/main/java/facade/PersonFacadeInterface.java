@@ -24,6 +24,6 @@ public interface PersonFacadeInterface {
     
     public String addPerson(Person person);
     
-    public String editPerson(Person person);
+    public JsonObject editPerson(Person person);
 
 }

@@ -40,6 +40,11 @@ public class PersonResource {
 
     }
 
+    /**
+     * Method to answer to a GET request on ../api/Person
+     *
+     * @return Returns a JSON object with every person from the database.
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersons() {
@@ -49,10 +54,12 @@ public class PersonResource {
     }
 
     /**
-     * Method to return a specific person object from the mySQL database.
+     * Method to return a specific person object from the mySQL database from
+     * the REST-call.
      *
-     * @param id
-     * @return A list with every object in JSON format.
+     * @param id The requested ID
+     * @return A JSON object consisting of the desired person.
+     * @throws PersonException Throws a the exception
      */
     @GET
     @Path("{id}")
@@ -81,32 +88,35 @@ public class PersonResource {
     }
 
     /**
-     * Method to return a specific person object from the mySQL database.
+     * Method to answer on a GET call, and return the contactinformation for all
+     * persons
      *
-     * @return A list with every object in JSON format.
-     * @throws exception.PersonException
+     * @return json object containing contactinfo from all persons
+     * @throws PersonException The exception
      */
     @GET
     @Path("/contactinfo")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonsContactinfo() throws PersonException {
+
         int pSize = facade.getPersons().size();
-        if( pSize < 0){
-        throw new PersonException("500");
+        if (pSize < 0) {
+            throw new PersonException("500");
         }
         return gson.toJson(facade.getPersonsContactinfo());
 
     }
 
     /**
-     * Method to return a specific person object from the mySQL database.
-     *
-     * @return A list with every object in JSON format.
+     * Method to answer on a GET-call, and return the contactinfo for a specific user.
+     * @param id The id of the person that the user wants 
+     * @return json object containing the information
+     * @throws PersonException the exception
      */
     @GET
     @Path("/contactinfo/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPersonContactinfo(@PathParam("id") int id) throws PersonException{
+    public String getPersonContactinfo(@PathParam("id") int id) throws PersonException {
 
         Person person = facade.getPerson(id);
         System.out.println("Hello! " + person);
@@ -123,54 +133,68 @@ public class PersonResource {
         } catch (NumberFormatException e) {
 
             return "";
-        
 
-    }
+        }
     }
 
+    /**
+     * Method to answer a POST call, adding a person.
+     * @param json the json object containing the person-data
+     * @return returns the person that has been added
+     * @throws PersonException the exception
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public String addPerson(String json) throws PersonException{
-        
+    public String addPerson(String json) throws PersonException {
+
         Person person = gson.fromJson(json, Person.class);
-        
+
         //check if the required name and email information has been added
-        if (person.getFirstName() == null || 
-                person.getLastName() == null ||
-                person.getEmail() == null) {
+        if (person.getFirstName() == null
+                || person.getLastName() == null
+                || person.getEmail() == null) {
             System.out.println("Person not added: Failed Step 1");
             throw new PersonException("400" + "addStep1");
-        } 
-        //Check if the required adress informatino has been added
-        else if ( person.getAddress().getAdditionalInfo() == null || 
-                person.getAddress().getCityInfo() == null ||
-                person.getAddress().getStreet() == null){
-             System.out.println("Person not added: Failed Step 2");
+        } //Check if the required adress informatino has been added
+        else if (person.getAddress().getAdditionalInfo() == null
+                || person.getAddress().getCityInfo() == null
+                || person.getAddress().getStreet() == null) {
+            System.out.println("Person not added: Failed Step 2");
             throw new PersonException("400" + "addStep2");
-            
-        } 
-        //Check if any phones has been added
-        else if (person.getPhones().get(0) == null){
-             System.out.println("Person not added: Failed Phone Step");
+
+        } //Check if any phones has been added
+        else if (person.getPhones().get(0) == null) {
+            System.out.println("Person not added: Failed Phone Step");
             throw new PersonException("400" + "addStepPhone");
-        } else
-        
-        System.out.println("Person succesfully added");
+        } else {
+            System.out.println("Person succesfully added");
+        }
         facade.addPerson(person);
         return gson.toJson(person);
-        
+
     }
 
+    /**
+     * Method to answer a PUT-call, editing a person
+     * @param json the object that need to be merged w
+     * @return returns the object that the facade has sent
+     */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public String editPerson(String json) {
-        
+
         Person person = gson.fromJson(json, Person.class);
-        facade.editPerson(person);
-        return gson.toJson(person);
-        
+
+        return gson.toJson(facade.editPerson(person));
+
     }
 
+    /**
+     * Method to answer a DELETE-call, deleting a Person from the database. 
+     * @param id the ID of the person desired to be deleted. 
+     * @return returns the object gotten from the facade.
+     */
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -179,4 +203,5 @@ public class PersonResource {
         return gson.toJson(facade.deletePerson(id));
 
     }
+    
 }

@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Entity
 public class Hobby implements Serializable {
 
@@ -15,11 +14,10 @@ public class Hobby implements Serializable {
     private Integer id;
     private String name, description;
     
-    
+    //We want to persist any changes made.  
     @ManyToMany(mappedBy = "hobbies", cascade = CascadeType.PERSIST)
     private transient List<Person> persons = new ArrayList<>();
 
-    
     public Hobby() {
     }
 
@@ -59,7 +57,5 @@ public class Hobby implements Serializable {
     public void setPersons(List<Person> persons) {
         this.persons = persons;
     }
-
-    
     
 }

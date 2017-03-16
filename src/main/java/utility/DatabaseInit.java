@@ -1,19 +1,16 @@
 package utility;
 
-import com.google.gson.Gson;
 import entity.Address;
 import entity.CityInfo;
 import entity.Hobby;
 import entity.Person;
 import entity.Phone;
-import facade.PersonFacade;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -33,12 +30,16 @@ public class DatabaseInit {
     private List<String> domain = new ArrayList();
 
     public static void main(String[] args) {
-
+        
         DatabaseInit bdI = new DatabaseInit();
 
+        //This method will initate the system. Generating shema, creating emf and em.
         bdI.initiateSystem();
+        
+        //This method will populate data into the ArrayLists. 
         bdI.populateLists();
 
+        //This is the method that will add random data to the databse.
         bdI.populateTablesWithPersons(100);
 
     }
@@ -51,6 +52,9 @@ public class DatabaseInit {
 
     }
 
+    /**
+     * Method to populate the ArrayLists and persist certain lists. 
+     */
     public void populateLists() {
 
         //Stuff we don't need in the database
@@ -220,7 +224,8 @@ public class DatabaseInit {
         cities.add(new CityInfo(2670, "Greve"));
 
         for (CityInfo city : cities) {
-
+            
+            //Persist the city to the dabase
             em.persist(city);
 
         }
@@ -240,20 +245,28 @@ public class DatabaseInit {
 
         for (Hobby hobby : hobbies) {
 
+            //Persist the data to the database.
             em.persist(hobby);
 
         }
 
+        //Commit the data that has been persisted. 
         em.getTransaction().commit();
 
     }
 
+    /**
+     * Method used to generate a random phone list to a user. 
+     * @return 
+     */
     public List<Phone> getRandomPhone() {
 
         List<Phone> phone = new ArrayList();
 
+        //A user can have three numbers.
         int luckyNumber = randInt(1, 3);
 
+        //Switchcase handling the luckyNumber.
         switch (luckyNumber) {
             case 1:
                 phone.add(new Phone(randInt(12345678, 99999999), "Home"));
@@ -269,16 +282,25 @@ public class DatabaseInit {
                 break;
         }
 
+        //Returning the list of Phone-objects. 
         return phone;
 
     }
 
+    /**
+     * Method to generate a random mail
+     * @return String containing a randomly generated email address. 
+     */
     public String getRandomMail() {
 
         return email.get(randInt(0, email.size() - 1)) + "@" + domain.get(randInt(0, domain.size() - 1));
 
     }
 
+    /**
+     * Method used to add the users. 
+     * @param amount Integer specifying the desired amount of random persons a user want to to create. 
+     */
     public void populateTablesWithPersons(int amount) {
 
         em.getTransaction().begin();
@@ -337,6 +359,9 @@ public class DatabaseInit {
         em.close();
     }
 
+    /**
+     * Legacy code, used to add a single user.
+     */
     public void testAdd() {
 
         try {
@@ -390,6 +415,7 @@ public class DatabaseInit {
         int randomNum = rand.nextInt((max - min) + 1) + min;
 
         return randomNum;
+        
     }
 
 }

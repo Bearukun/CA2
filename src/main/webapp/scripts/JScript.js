@@ -4,7 +4,7 @@ var tbody = document.getElementById("bodyT");
 var people;
 var fetchedPerson;
 
-
+//Function to fetch people from the database through the REST Api.
 function fetchPeople() {
 
     var url = "http://localhost:8084/CA2/api/Person";
@@ -25,6 +25,7 @@ function fetchPeople() {
 
 }
 
+//Function to generate a formated list to pupulate the table on the website
 function listMaker(arr) {
 
     var parsed = JSON.parse(arr);
@@ -49,9 +50,10 @@ function listMaker(arr) {
     return lis.join("");
 }
 ;
+
 fetchPeople();
 
-
+//Function to extract hobbies from the hobbies object, and print as formatted list for the table. 
 function getHobbies(hobbies){
     var tempString = "";
     for(var x in hobbies){
@@ -60,6 +62,8 @@ function getHobbies(hobbies){
     }
     return tempString;
 }
+
+//Function to extract phonenumbers from the phones object, and print as formatted list for the table. 
 function getPhones(phoneNumbers){
     
     var tempString = "";
@@ -74,6 +78,8 @@ function getPhones(phoneNumbers){
     return tempString;
     
 }
+
+//Function to add a person.
 function addPerson() {
     var fName = document.getElementById("fName");
     var lName = document.getElementById("lName");
@@ -104,6 +110,8 @@ function addPerson() {
         fetchPeople();
     });
 };
+
+//Function to remove a person by id.
 function removePerson(id) {
 
     var url = "http://localhost:8084/CA2/api/Person/" + id;
@@ -124,6 +132,8 @@ function removePerson(id) {
 
 
 }
+
+//Function to fetch a person by id.
 function fetchPerson(id) {
 
     var url = "http://localhost:8084/CA2/api/Person/" + id;
@@ -149,6 +159,7 @@ function fetchPerson(id) {
     });
 }
 
+//Function to edit a person.
 function editPerson() {
     
     fetchedPerson.firstName = document.getElementById("efirstName").value;

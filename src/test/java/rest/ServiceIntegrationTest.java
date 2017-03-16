@@ -3,9 +3,7 @@ package rest;
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
 import io.restassured.parsing.Parser;
-import static org.hamcrest.Matchers.equalTo;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 
 public class ServiceIntegrationTest {
@@ -37,8 +35,8 @@ public class ServiceIntegrationTest {
     }
 
     /**
-     * We know that we'll get a 404 response with and a JSON object back when 
-     * trying to get a Person that from an ID that doesn't exist.  
+     * We know that we'll get a 404 response with and a JSON object back when
+     * trying to get a Person that from an ID that doesn't exist.
      */
     @Test
     public void getPersonThatDoesNotExist() {
@@ -47,10 +45,10 @@ public class ServiceIntegrationTest {
                 then().
                 statusCode(404);
     }
-    
+
     /**
-     * We know that we'll get a 200 response with and a JSON object back when 
-     * trying to get a Person that from an ID that exist.  
+     * We know that we'll get a 200 response with and a JSON object back when
+     * trying to get a Person that from an ID that exist.
      */
     @Test
     public void getPerson() {

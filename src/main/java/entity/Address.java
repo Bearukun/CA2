@@ -20,7 +20,7 @@ public class Address implements Serializable {
     
     private String street, additionalInfo;
     
-        
+    //We want to persist any changes made.      
     @ManyToOne(cascade = CascadeType.PERSIST)
     private CityInfo cityInfo;
     

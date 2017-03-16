@@ -18,7 +18,6 @@ public class InfoEntity implements Serializable {
 
     private String email;
 
-
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "IE_ID")
     List<Phone> phones = new ArrayList<>();
@@ -71,7 +70,6 @@ public class InfoEntity implements Serializable {
     public void setAddress(Address address) {
         this.address = address;
     }
-
 
     @Override
     public String toString() {

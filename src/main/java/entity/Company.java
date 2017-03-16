@@ -1,9 +1,7 @@
 package entity;
 
 import java.io.Serializable;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Company extends InfoEntity implements Serializable {
@@ -70,7 +68,5 @@ public class Company extends InfoEntity implements Serializable {
     public String toString() {
         return "Company{" + "name=" + name + ", description=" + description + ", NumEmployees=" + NumEmployees + ", cvr=" + cvr + ", marketValue=" + marketValue + '}';
     }
-    
-    
 
 }

@@ -17,9 +17,6 @@ public class Phone implements Serializable {
     
     private int number;
     private String description;
-    
-   
-    
 
     public Phone() {
     }
@@ -28,7 +25,6 @@ public class Phone implements Serializable {
         this.number = number;
         this.description = description;
     }
-
 
     public Integer getId() {
         return id;

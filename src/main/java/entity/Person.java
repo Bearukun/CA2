@@ -16,7 +16,6 @@ public class Person extends InfoEntity implements Serializable {
  
     private String firstName, lastName;
     
-    
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<Hobby> hobbies = new ArrayList<>();
     
@@ -34,7 +33,6 @@ public class Person extends InfoEntity implements Serializable {
         this.hobbies.add(hobby);
         
     }
-    
     
     public List<Hobby> getHobbies() {
         return hobbies;
@@ -64,7 +62,5 @@ public class Person extends InfoEntity implements Serializable {
     public String toString() {
         return "Person{" + "firstName=" + firstName + ", lastName=" + lastName + ", hobbies=" + hobbies.get(0).getName() + '}';
     }
-
-    
     
 }

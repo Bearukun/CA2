@@ -1,15 +1,12 @@
 package exception;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.sun.jersey.spi.inject.Errors.ErrorMessage;
 import facade.PersonFacade;
 import javax.persistence.Persistence;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.ErrorMessages;
 
 @Provider
 public class PersonExceptionMapper implements ExceptionMapper<Exception> {
@@ -17,8 +14,8 @@ public class PersonExceptionMapper implements ExceptionMapper<Exception> {
     public PersonExceptionMapper() {
         
          fc.addEntityManagerFactory(Persistence.createEntityManagerFactory("pu"));
+         
     }
-
     
     Gson gson = new Gson();
     PersonFacade fc = new PersonFacade();
@@ -119,6 +116,7 @@ public class PersonExceptionMapper implements ExceptionMapper<Exception> {
         jo.addProperty("HTTP Status", "404");
         jo.addProperty("Reason", "The requested resource could not be found.");
         return Response.status(404).entity(gson.toJson(jo)).build();
+        
     }
 
 }
