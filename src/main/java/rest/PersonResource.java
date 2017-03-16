@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import entity.Person;
 import exception.PersonException;
 import facade.PersonFacade;
-import java.util.List;
 import javax.persistence.Persistence;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -14,9 +13,10 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import facade.PersonFacadeInterface;
-import javax.swing.text.html.HTML;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 
 /**
  * REST Web Service
@@ -57,30 +57,26 @@ public class PersonResource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPerson(@PathParam("id") int id)throws PersonException{
-        
+    public String getPerson(@PathParam("id") int id) throws PersonException {
+
         Person person = facade.getPerson(id);
         System.out.println("Hello! " + person);
 
-        
-       
-        if(person == null){
-            
+        if (person == null) {
+
             throw new PersonException("404");
-            
-        } 
-        
+
+        }
+
         try {
-            
+
             return gson.toJson(facade.getPerson(id));
-        
+
         } catch (NumberFormatException e) {
-            
+
             return "";
-            
-            }
-            
-        
+
+        }
 
     }
 
@@ -112,15 +108,32 @@ public class PersonResource {
 
     }
 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String addPerson(String json) {
+        
+        Person person = gson.fromJson(json, Person.class);
+        facade.addPerson(person);
+        return gson.toJson(person);
+        
+    }
 
-
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String editPerson(String json) {
+        
+        Person person = gson.fromJson(json, Person.class);
+        facade.editPerson(person);
+        return gson.toJson(person);
+        
+    }
 
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String deletePerson(@PathParam("id") int id) {
-        
+
         return gson.toJson(facade.deletePerson(id));
-        
+
     }
 }

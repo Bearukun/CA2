@@ -21,5 +21,9 @@ public interface PersonFacadeInterface {
     public JsonObject getPersonsContactinfo(int id);
     
     public JsonObject deletePerson(int id);
+    
+    public String addPerson(Person person);
+    
+    public String editPerson(Person person);
 
 }

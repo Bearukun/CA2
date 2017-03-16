@@ -129,22 +129,22 @@ public class PersonFacade implements PersonFacadeInterface {
         EntityManager em = emf.createEntityManager();
 
         Person person = null;
-        
+
         try {
-            
+
             em.getTransaction().begin();
             person = em.merge(em.find(Person.class, id));
             em.remove(person);
             em.getTransaction().commit();
-            
+
         } catch (PersistenceException e) {
-            
+
             em.getTransaction().rollback();
-            
+
         } finally {
-            
+
             em.close();
-            
+
         }
 
         JsonObject jo = new JsonObject();
@@ -152,6 +152,60 @@ public class PersonFacade implements PersonFacadeInterface {
         jo.addProperty("message", "Person: " + person.getFirstName() + " with id: " + id + " has been removed.");
 
         return jo;
+
+    }
+
+    /**
+     * Method to add a person
+     *
+     * @param person Person object to be added
+     * @return Returns added person
+     */
+    @Override
+    public String addPerson(Person person) {
+
+        EntityManager em = emf.createEntityManager();
+
+        try {
+
+            em.getTransaction().begin();
+            em.persist(person);
+            em.getTransaction().commit();
+
+        } catch (PersistenceException ex) {
+
+            em.getTransaction().rollback();
+            return ex.getMessage();
+
+        } finally {
+
+            em.close();
+
+        }
+
+        return "OK";
+
+    }
+
+    @Override
+    public String editPerson(Person person) {
+
+        EntityManager em = emf.createEntityManager();
+
+        try {
+
+            em.getTransaction().begin();
+            em.merge(person);
+            em.getTransaction().commit();
+
+        } catch (PersistenceException ex) {
+
+            em.getTransaction().rollback();
+            return ex.getMessage();
+
+        }
+        
+        return "OK";
 
     }
 
