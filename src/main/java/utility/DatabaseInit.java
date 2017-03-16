@@ -78,6 +78,17 @@ public class DatabaseInit {
         fName.add("Alan");
         fName.add("Linus");
         fName.add("Indiana");
+        fName.add("Kimberly");
+        fName.add("Peach");
+        fName.add("Arnold");
+        fName.add("Aki");
+        fName.add("Marcus");
+        fName.add("Victor");
+        fName.add("Sofie");
+        fName.add("Cecilie");
+        fName.add("Shigeru");
+        fName.add("Phil");
+        fName.add("Hironobu");
 
         lName.add("Drake");
         lName.add("Wake");
@@ -100,12 +111,19 @@ public class DatabaseInit {
         lName.add("Mouse");
         lName.add("Jones");
         lName.add("Boss");
+        lName.add("Forsberg");
+        lName.add("Vettergren");
+        lName.add("Akara");
+        lName.add("Engelbrekt");
+        lName.add("Miyamoto");
+        lName.add("Spencer");
+        lName.add("Sakaguchi");
 
         email.add("wakaman" + randInt(1, 99));
         email.add("bk" + randInt(1, 99));
         email.add("ceo" + randInt(1, 99));
         email.add("deluxemail" + randInt(1, 99));
-        email.add("ludoman" + randInt(1, 99));
+        email.add("ludo_fan" + randInt(1, 99));
         email.add("bigboss" + randInt(1, 99));
         email.add("pizzalover" + randInt(1, 99));
         email.add("deeznuts" + randInt(1, 99));
@@ -131,7 +149,7 @@ public class DatabaseInit {
         domain.add("ign.com");
 
         address.add("Kongevejen " + randInt(1, 200));
-        address.add("Knud den storevej " + randInt(1, 200));
+        address.add("Knud den storesvej " + randInt(1, 200));
         address.add("Nordrefrihanvs gade " + randInt(1, 200));
         address.add("Jernbanegade " + randInt(1, 200));
         address.add("Hermosavej " + randInt(1, 200));
@@ -152,6 +170,12 @@ public class DatabaseInit {
         address.add("Thorsvej " + randInt(1, 200));
         address.add("Frejasvej " + randInt(1, 200));
         address.add("Lokesvej " + randInt(1, 200));
+        address.add("Kong Christiansvej " + randInt(1, 200));
+        address.add("Brombærvej " + randInt(1, 200));
+        address.add("Hindbærvej " + randInt(1, 200));
+        address.add("Solbærvej " + randInt(1, 200));
+        address.add("Melonvej " + randInt(1, 200));
+        address.add("Kedsomhedsvej " + randInt(1, 200));
 
         addDescrip.add("Big house.");
         addDescrip.add("Very expensive.");
@@ -229,16 +253,16 @@ public class DatabaseInit {
 
         switch (luckyNumber) {
             case 1:
-                phone.add(new Phone(randInt(12345678, 99999999), "home"));
+                phone.add(new Phone(randInt(12345678, 99999999), "Home"));
                 break;
             case 2:
-                phone.add(new Phone(randInt(12345678, 99999999), "home"));
-                phone.add(new Phone(randInt(12345678, 99999999), "cell"));
+                phone.add(new Phone(randInt(12345678, 99999999), "Home"));
+                phone.add(new Phone(randInt(12345678, 99999999), "Cell"));
                 break;
             default:
-                phone.add(new Phone(randInt(12345678, 99999999), "home"));
-                phone.add(new Phone(randInt(12345678, 99999999), "cell"));
-                phone.add(new Phone(randInt(12345678, 99999999), "work"));
+                phone.add(new Phone(randInt(12345678, 99999999), "Home"));
+                phone.add(new Phone(randInt(12345678, 99999999), "Cell"));
+                phone.add(new Phone(randInt(12345678, 99999999), "Work"));
                 break;
         }
 
