@@ -2,6 +2,7 @@ package rest;
 
 import com.google.gson.Gson;
 import entity.Person;
+import exception.PersonException;
 import facade.PersonFacade;
 import java.util.List;
 import javax.persistence.Persistence;
@@ -13,6 +14,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import facade.PersonFacadeInterface;
+import javax.swing.text.html.HTML;
 
 /**
  * REST Web Service
@@ -47,14 +49,36 @@ public class PersonResource {
     /**
      * Method to return a specific person object from the mySQL database.
      *
+     * @param id
      * @return A list with every object in JSON format.
      */
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPerson(@PathParam("id") int id) {
+    public String getPerson(@PathParam("id") int id)throws PersonException{
+        
+        Person person = facade.getPerson(id);
+        System.out.println("Hello! " + person);
 
-        return gson.toJson(facade.getPerson(id));
+        
+       
+        if(person == null){
+            
+            throw new PersonException("404");
+            
+        } 
+        
+        try {
+            
+            return gson.toJson(facade.getPerson(id));
+        
+        } catch (NumberFormatException e) {
+            
+            return "";
+            
+            }
+            
+        
 
     }
     
