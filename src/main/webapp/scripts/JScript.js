@@ -31,32 +31,17 @@ function listMaker(arr) {
     var parsed = JSON.parse(arr);
     var lis = parsed.map(function (people) {
 
-        // For loop test to number + desc. in the console
-        for (var i = 0; i < people.phones.length; i++) {
-            console.log(people.phones[i].id);
-            console.log(people.phones[i].number);
-            console.log(people.phones[i].description);
-        }
-
-        // For loop test to hobbies + desc. in the console
-        for (var i = 0; i < people.hobbies.length; i++) {
-            console.log(people.hobbies[i].id);
-            console.log(people.hobbies[i].name);
-            console.log(people.hobbies[i].description);
-
-
-        }
         return  "<tr>" +
                 "<td>" + people.id + "</td>" +
                 "<td>" + people.firstName + "</td>" +
                 "<td>" + people.lastName + "</td>" +
                 "<td>" + people.email + "</td>" +
-                "<td>" + people.hobbies + "</td>" +
+                "<td>" + getHobbies(people.hobbies) + "</td>" +
                 "<td>" + people.address.street + "<br>"
-                + people.address.additionalInfo + "<br>"
+                + people.address.cityInfo.city  + "<br>"
                 + people.address.cityInfo.zipCode + "<br>"
-                + people.address.cityInfo.city + "</td>" +
-                "<td>" +people.phones+ "</td>" +
+                + "<b><i>Description:</b></i><br>" + people.address.additionalInfo + "</td>" +
+                "<td>" + getPhones(people.phones) + "</td>" +
                 "<td>" + "<a href= \"\" onclick=\"removePerson(" + people.id + ");return false;\">delete</a>" +
                 " \\ " + "<a href= \"\" data-toggle=\"modal\" data-target=\"#myEditModal\" onclick=\"fetchPerson(" + people.id + ");return false;\">edit</a>" + "</td>" +
                 "</tr>";
@@ -68,29 +53,28 @@ function listMaker(arr) {
 fetchPeople();
 
 
-function phoneConverter(arr) {
-
-    var parsedPhone = JSON.parse(arr);
-    var phoneLis = parsedPhone.map(function (phoneP) {
-        var phoneString;
-        var phoneNumber;
-
-        console.log("PHONE CONVERTER!");
-        for (var i = 0; i < phoneP.phones.length; i++) {
-
-            phoneString += phoneP.phones[i];
-            console.log(phoneP.phones[i].description);
-            console.log(phoneP.phones[i].number);
-
-        }
-        console.log("PHONE CONVERTER - DONE!");
-
-
-
-    });
-    return "hi";
+function getHobbies(hobbies){
+    var tempString = "";
+    for(var x in hobbies){
+        tempString += "<b>" + hobbies[x].name + "\n  </b><br>"; 
+        tempString += hobbies[x].description + "\n <br>"; 
+    }
+    return tempString;
 }
-;
+function getPhones(phoneNumbers){
+    
+    var tempString = "";
+    
+    for(var x in phoneNumbers){
+        
+        tempString += "<b>" + phoneNumbers[x].description + "\n </b><br>"; 
+        tempString += phoneNumbers[x].number + "\n <br>"; 
+        
+    }
+    
+    return tempString;
+    
+}
 
 
 function addPerson() {
