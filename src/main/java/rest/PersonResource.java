@@ -67,8 +67,8 @@ public class PersonResource {
     public String getPerson(@PathParam("id") int id) throws PersonException {
 
         Person person = facade.getPerson(id);
-        System.out.println("Hello! " + person);
-        System.out.println(facade.getPersons().size());
+//        System.out.println("Hello! " + person);
+//        System.out.println(facade.getPersons().size());
         if (person == null) {
 
             throw new PersonException("404");
@@ -108,8 +108,10 @@ public class PersonResource {
     }
 
     /**
-     * Method to answer on a GET-call, and return the contactinfo for a specific user.
-     * @param id The id of the person that the user wants 
+     * Method to answer on a GET-call, and return the contactinfo for a specific
+     * user.
+     *
+     * @param id The id of the person that the user wants
      * @return json object containing the information
      * @throws PersonException the exception
      */
@@ -139,6 +141,7 @@ public class PersonResource {
 
     /**
      * Method to answer a POST call, adding a person.
+     *
      * @param json the json object containing the person-data
      * @return returns the person that has been added
      * @throws PersonException the exception
@@ -170,38 +173,82 @@ public class PersonResource {
             System.out.println("Person succesfully added");
         }
         facade.addPerson(person);
+        System.out.println("Person succesfully added");
         return gson.toJson(person);
 
     }
 
     /**
-     * Method to answer a PUT-call, editing a person
-     * @param json the object that need to be merged w
-     * @return returns the object that the facade has sent
+     * Method to accept a PUT call and edit a person.
+     *
+     * @param json the person object in json format.
+     * @return returns the json object from the facade.
+     * @throws PersonException The exception.
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public String editPerson(String json) {
+    public String editPerson(String json) throws PersonException {
 
         Person person = gson.fromJson(json, Person.class);
+        //check if the required name and email information has been edited correctly
+        if (person.getFirstName() == null
+                || person.getLastName() == null
+                || person.getEmail() == null) {
+            System.out.println("Person not added: Failed Step 1");
+            throw new PersonException("400" + "addStep1");
+        } //Check if the required adress informatino has been edited correctly
+        else if (person.getAddress().getAdditionalInfo() == null
+                || person.getAddress().getCityInfo() == null
+                || person.getAddress().getStreet() == null) {
+            System.out.println("Person not added: Failed Step 2");
+            throw new PersonException("400" + "addStep2");
 
-        return gson.toJson(facade.editPerson(person));
+        } //Check if the basic phone has been edited correctly
+        else if (person.getPhones().get(0) == null) {
+            System.out.println("Person not added: Failed Phone Step");
+            throw new PersonException("400" + "addStepPhone");
+        }
+
+        try {
+
+            return gson.toJson(facade.editPerson(person));
+
+        } catch (NumberFormatException e) {
+
+            return "";
+
+        }
 
     }
 
     /**
-     * Method to answer a DELETE-call, deleting a Person from the database. 
-     * @param id the ID of the person desired to be deleted. 
-     * @return returns the object gotten from the facade.
+     * Method that accepts a DELETE call and deletes a person.
+     * @param id the id of the person that is going to be deleted.
+     * @return returns a json object from the facade.
+     * @throws PersonException the exception.
      */
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String deletePerson(@PathParam("id") int id) {
+    public String deletePerson(@PathParam("id") int id) throws PersonException {
 
-        return gson.toJson(facade.deletePerson(id));
+        Person person = facade.getPerson(id);
+
+        if (person == null) {
+            
+            throw new PersonException("404");
+            
+        }
+        try {
+
+            return gson.toJson(facade.deletePerson(id));
+            
+        } catch (Exception e) {
+            
+            return "";
+            
+        }
 
     }
-    
+
 }
