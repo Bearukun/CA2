@@ -1,97 +1,103 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Start Page</title>
+        <title>Krok - find stuff</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
     </head>
     <body>
-        <h1>Persons</h1> 
-        <table class="table">
+        
+        <div id="authors" style="display: none;"> Bjørn Kristiansen, Christian Olsen </div> 
+        <div id="class" style="display: none;">dat3qf</div> 
+        <div id="group" style="display: none;"> 13 </div>
+
+        <table class="table table-striped">
             <thead>
+            <h3>Persons</h3> 
+            <button class="btn btn-info" id="btn" onclick="fetchPeople()">Refresh</button>
+            <!-- Trigger the modal with a button -->
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Create Person</button>
+        </thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Hobbies</th>
+            <th>Address</th>
+            <th>Phone(s)</th>
+            <th>Options</th>
+        </tr>
+        <tbody id="bodyT"></tbody>
+    </table>
 
-            </thead>
-            <tr>
-                <th>ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Hobbies</th>
-                <th>Address</th>
-                <th>Phone(s)</th>
-                <th>Options</th>
-            </tr>
-            <tbody id="bodyT"></tbody>
 
-
-        </table>
-        <button id="btn" onclick="fetchPeople()">Refresh</button>
-
-
-        <!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Create Person</button>
-
-        <div id="myModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Create Person</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>First Name</p>
-                        <input type="text" id="fName" > 
-                        <p>Last Name</p>
-                        <input type="text" id="lName" > 
-                        <p>Phone</p>
-                        <input type="text" id="phone" > 
-
-                        <button onclick="addPerson()" type="button" class="btn btn-default" data-dismiss="modal">Add User</button>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Create Person</h4>
                 </div>
-
+                <div class="modal-body">
+                    <p>First Name</p>
+                    <input type="text" id="fName" > 
+                    <p>Last Name</p>
+                    <input type="text" id="lName" > 
+                    <p>Phone</p>
+                    <input type="text" id="phone" > 
+                    <button onclick="addPerson()" type="button" class="btn btn-default" data-dismiss="modal">Add User</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
+    </div>
 
-        <div id="myEditModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Edit Person</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>ID </p>
-                        <input type="text" id="eid" > 
-                        <p>First Name</p>
-                        <input type="text" id="efName" > 
-                        <p>Last Name</p>
-                        <input type="text" id="elName" > 
-                        <p>Phone</p>
-                        <input type="text" id="ePhone" > 
-
-                        <button onclick="editPerson()" type="button" class="btn btn-default" data-dismiss="modal">Edit User</button>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <div id="myEditModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <center><h4 class="modal-title">Edit Person</h4></center>
+                </div>
+                <div class="modal-body">
+                    <div class ="container-fluid">
+                        <div class ="row">
+                            <div class ="col-md-6 col-sm-6">
+                                <p><b>ID</b></p>
+                                <input class="form-control" type="text" id="eid" readonly><br><br>
+                                <p><b>First Name</b></p>
+                                <input class="form-control" type="text" id="efirstName" ><br><br>
+                                <p><b>Last Name</b></p>
+                                <input class="form-control" type="text" id="elastName" ><br><br>
+                                <p><b>Email</b></p>
+                                <input class="form-control" type="text" id="eemail" >
+                            </div>
+                            <div class ="col-md-6 col-sm-6">
+                                <p><b>Address</b></p>
+                                <input class="form-control" type="text" id="estreet"><br>
+                                <input class="form-control" type="text" id="ecity"><br>
+                                <input class="form-control" type="text" id="ezipCode"><br><br>
+                                <p><i>Additional information</i></p>
+                                <input class="form-control" type="text" id="eadditionalInfo">
+                            </div>
+                        </div>
                     </div>
                 </div>
-
+                <div class="modal-footer">
+                    <button onclick="editPerson()" type="button" class="btn btn-warning" data-dismiss="modal">Edit User</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
+    </div>
 
-        <script src="scripts/JScript.js" type="text/javascript"></script>
-    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="scripts/JScript.js" type="text/javascript"></script>
+</body>
 </html>
