@@ -20,14 +20,181 @@ and open the template in the editor.
                 <ul class="nav navbar-nav">
                     <li><a href="index.html">The project</a></li>
                     <li><a href="https://github.com/Bearukun/CA2" target="_blank">GitHub</a></li>
-                    <li><a href="#" target="_blank">Javadoc</a></li>
+                    <li><a href="apidocs/index.html" target="_blank">Javadoc</a></li>
                     <li class="active"><a href="documentation.html">Documentation</a></li>
                 </ul>
             </div>
         </nav>
-        <div>TODO write content</div>
+
+
+        <br>
+        <br>
+        <br>
+
+
+        <div class="container">
+
+            <h3>Who did what-table</h3>            
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Person</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Setup of MYSQL</strong></td>
+                        <td>Bjørn & Christian</td>
+
+                    </tr>
+                    <tr>
+                        <td><strong>Setup of Dependencies</strong></td>
+                        <td>Bjørn & Christian</td>
+
+                    </tr>
+                    <tr>
+                        <td><strong>Entity's</strong></td>
+                        <td>Bjørn & Christian</td>
+
+                    </tr>
+                    <tr>
+                        <td><strong>JUnit- & ServiceIntegration-Test</strong></td>
+                        <td>Bjørn</td>
+
+                    </tr> <tr>
+                        <td><strong>Rest</strong></td>
+                        <td>Bjørn & Christian</td>
+
+                    </tr> <tr>
+                        <td><strong>Exception Handling</strong></td>
+                        <td>Bjørn</td>
+
+                    </tr> <tr>
+                        <td><strong>PersonFacade</strong></td>
+                        <td>Christian</td>
+
+                    </tr> <tr>
+                        <td><strong>Scripts</strong></td>
+                        <td>Bjørn & Christian</td>
+
+                    </tr> <tr>
+                        <td><strong>Index.html</strong></td>
+                        <td>Bjørn & Christian</td>
+
+                    </tr> <tr>
+                        <td><strong>Documentation.html</strong></td>
+                        <td>Christian</td>
+
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="lead"><strong>Inheritance</strong></h3>
+        <pre><strong>Documentation</strong>
+
+        Our inheritance strategy pretty much followed the model that was handed out for the assignment.
+
+        Both the <i>Person-</i> and <i>Company</i>-entitys <strong>extends</strong> InfoEntity. 
+        [Side note: Company class is not really used for anything in our project].
+
+        We allowed Person to have multiple hobbies and the same hobby to be assigned to multiple persons, 
+        so we used a <i>“ManyToMany”-relation"</i>. 
+        [Note: This originally resulted in a lot of critical and crashing errors, 
+        which fixed with the help of Nikki, by adding “transient”to the variable declaration.
+
+        A <i>“OneToMany”</i> relation was used between <i>InfoEntity</i> and <i>Phone</i>, to allow multiple <i>Phones</i> to be assigned to the same <i>InfoEntity</i>.
+
+        A <i>“ManyToOne”</i> relation was used between <i>InfoEntity</i> and <i>Address</i>, so that we can have multiple <i>InfoEnty’s</i> and One <i>Address</i> assigned to them.  
+        
+        A <i>“ManyToOne”</i> relation between <i>Address</i> and <i>CityInfo</i>, so that <i>CityInfo</i> can have multiple <i>Address</i> and that a <i>Address</i> can only be assigned to one <i>CityInfo</i>. 
+
+
+        </pre>
+
+        <h3 class="lead"><strong>Flow 2 Feedback</strong></h3>
+        <pre><strong>Feedback</strong>
+        
+        <strong>Positive:</strong> General good demo’s and examples given during class. 
+        
+        <strong>Exception Handling:</strong> 
+        The whole lecture with Thomas regarding how to handle Errors and mappers on Wednesday the 8th of March was, quite frankly,
+        a disaster. Thomas spent about 1 hour of lecturing and talking about the concept of handling errors (which was good), 
+        but then tried to demo an example which for some reason wouldn’t work and then told us that we could look at the example code on Github 
+        and that would be all for today. 
+        It felt disjointed and unprepared. 
+        To his credit though, the example on Github pretty much worked flawlessly. 
+
+        <strong>Exercises</strong>
+        A lot of the exercises and their explanations/instructions felt like they hadn’t been tested or double checked for errors, 
+        road-blocks or unused technology.
+
+        <strong>SP5</strong>
+        SP5 was probably the biggest and most time consuming SP to-date. 
+        The daily exercises were pretty huge for something that was supposed to be completed with a day
+        and while they were (mostly) not part of the actual SP5 handing, they were required to have been completed and done,
+        in order to do/solve the actual SP-exercises for hand-in.  In other words: 
+        It felt like we had to do the double amount of exercises for the week, yet only present/hand-in half of them.
+        
+        While on the subject, the exercise for Day 2 was especially huge! 
+        It felt like it should have been spread over 2 days, instead of 1. 
+        <a href="https://github.com/CphBusCosSem3/Exercises/blob/master/SP/SP5/REST_JAX-RS_ex2.pdf" >Day 2 exercise</a>
+        
+
+        <strong>Flow 2</strong> 
+        The length of 4 weeks, combined with he amount of new stuff and topics, might just be a tad too much.  
+        There were A LOT of new topics and a lot of details to learn and master and (what felt like) too little time
+        to really delve into the nitty-gritty details, because of the huge exercises. 
+
+        <strong>CA2</strong> 
+        Didn’t get the answers or help we wanted from the teachers regarding a critical error we had while building the database/backend,
+        and instead had to rely on our fellow students to come up with solutions. 
+       
+        <strong>Extra Study Points </strong>
+        While on the topic of help, Nikki from group 3 should be awarded extra study points for having helped us greatly. 
+        When we couldn’t figure out why our backend was throwing all sorts of tantrums and errors 
+        (which was due to our Hobbies entity class ArrayList of Persons lacking a ‘transient’ declaration), 
+        Nikki stepped up and helped us untangled the mess we had gotten our self into. Without his help and knowledge, 
+        we would probably never have been able to identify the issue.
+
+        Extra study points should also be awarded to Group 4 (Martin, Menja & Hannibal), 
+        who gave us constructive feedback during development and also helped us with smaller parts of the program. 
+        </pre>
+        <h3 class="lead"><strong>Testing the System</strong></h3>
+        <pre><strong>How to Test the System</strong>
+        
+        <i><strong>REST Assured-test</strong></i>
+        Before the Rest Assured Tests can run, the database must be populated with data. 
+        To do this, make sure that the project has a persistence unit attached to the entities. 
+        Then run the class “DatabaseInit” that is in the utility-package. 
+        Make sure that data has been created by running the project, or using a mysql-viewer client. 
+        Now that these steps have been completed, the Rest Assured Test can now be run. 
+        This test class is located under the test packages in the rest package. 
+        Each test method has been commented in the code.
+
+        <i><strong>How to use the System</strong></i>
+        Using the system is easy and intuitive. 
+        The navigation bar at the top will give the option to view the project, open a link to GitHub, open a link to the Java Documentation 
+        and the documentation of the project. 
+        When viewing the project, two buttons at the top will let the user update the table, or create a new person. 
+        The table will list all the persons on the database, and each user will have two options associated to it – delete and edit.
+
+        </pre>
+
+
+        <h3 class="lead"><strong>Test Strategy & Test Results</strong></h3>
+        <pre><i> 
+        For information and results regarding the "Test Results" and "Test Strategy", 
+        please see the comments and source code of <strong>“PersonFacadeTest”</strong> & <strong>“ServiceIntegrationTest”</strong>. 
+        </i>
+
+        </pre>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="scripts/JScript.js" type="text/javascript"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     </body>
 </html>
