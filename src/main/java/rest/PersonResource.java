@@ -158,22 +158,23 @@ public class PersonResource {
                 || person.getEmail() == null) {
             System.out.println("Person not added: Failed Step 1");
             throw new PersonException("400" + "addStep1");
-        } //Check if the required adress informatino has been added
-        else if (person.getAddress().getAdditionalInfo() == null
-                || person.getAddress().getCityInfo() == null
-                || person.getAddress().getStreet() == null) {
-            System.out.println("Person not added: Failed Step 2");
-            throw new PersonException("400" + "addStep2");
-
-        } //Check if any phones has been added
-        else if (person.getPhones().get(0) == null) {
-            System.out.println("Person not added: Failed Phone Step");
-            throw new PersonException("400" + "addStepPhone");
-        } else {
-            System.out.println("Person succesfully added");
         }
+//        //Check if the required adress informatino has been added
+//        else if (person.getAddress().getAdditionalInfo() == null
+//                || person.getAddress().getCityInfo() == null
+//                || person.getAddress().getStreet() == null) {
+//            System.out.println("Person not added: Failed Step 2");
+//            throw new PersonException("400" + "addStep2");
+//
+//        } //Check if any phones has been added
+//        else if (person.getPhones().get(0) == null) {
+//            System.out.println("Person not added: Failed Phone Step");
+//            throw new PersonException("400" + "addStepPhone");
+//        } else {
+//            System.out.println("Person succesfully added");
+//        }
         facade.addPerson(person);
-        System.out.println("Person succesfully added");
+      
         return gson.toJson(person);
 
     }

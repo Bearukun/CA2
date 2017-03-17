@@ -81,9 +81,16 @@ function getPhones(phoneNumbers){
 
 //Function to add a person.
 function addPerson() {
-    var fName = document.getElementById("fName");
-    var lName = document.getElementById("lName");
-    var phone = document.getElementById("phone");
+    var fName = document.getElementById("firstName");
+    var lName = document.getElementById("lastName");
+    var email = document.getElementById("email");
+    var street = document.getElementById("street");
+    var city = document.getElementById("city");
+    var zipCode = document.getElementById("zipCode");
+    var addInfo = document.getElementById("additionalInfo");
+    
+  
+    
     var url = "http://localhost:8084/CA2/api/Person";
     var conf = {method: 'POST',
         headers:
@@ -94,9 +101,25 @@ function addPerson() {
 
         body: JSON.stringify({
 
-            fName: fName.value.toString(),
-            lName: lName.value.toString(),
-            phone: phone.value.toString()
+            firstName: fName.value.toString(),
+            lastName: lName.value.toString(),
+            hobbies: [{}],
+            email: email.value.toString(),
+            phones: null,
+            address: {
+                street: street.value.toString(),
+                additionalInfo: addInfo.value.toString(),
+                
+                cityInfo: {
+                    
+                    zipCode: parseInt(zipCode.value.toString()),
+                    city: city.value.toString()
+                
+                }
+                
+            }
+            
+            
 
         })
     };

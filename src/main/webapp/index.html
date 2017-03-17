@@ -16,21 +16,20 @@
                     <li class="active"><a href="#">The project</a></li>
                     <li><a href="https://github.com/Bearukun/CA2" target="_blank">GitHub</a></li>
                     <li><a href="#" target="_blank">Javadoc</a></li>
-                    <li><a href="#">Page 3</a></li>
                 </ul>
             </div>
         </nav>
 
         <div id="authors" style="display: none;"> Bjørn Kristiansen, Christian Olsen </div> 
         <div id="class" style="display: none;">dat3qf</div> 
-        <div id="group" style="display: none;"> 13 </div>
+        <div id="group" style="display: none;">13</div>
 
         <table class="table table-striped">
             <thead>
             <h3>Persons</h3> 
             <button class="btn btn-info" id="btn" onclick="fetchPeople()">Refresh</button>
             <!-- Trigger the modal with a button -->
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Create Person (NOT WORKING YET)</button>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Create Person</button>
         </thead>
         <tr>
             <th>ID</th>
@@ -54,16 +53,30 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Create Person</h4>
                 </div>
-                <div class="modal-body">
-                    <p>First Name</p>
-                    <input type="text" id="fName" > 
-                    <p>Last Name</p>
-                    <input type="text" id="lName" > 
-                    <p>Phone</p>
-                    <input type="text" id="phone" > 
-                    <button onclick="addPerson()" type="button" class="btn btn-default" data-dismiss="modal">Add User</button>
+               <div class="modal-body">
+                    <div class ="container-fluid">
+                        <div class ="row">
+                            <div class ="col-md-6 col-sm-6">
+                                <p><b>First Name</b></p>
+                                <input class="form-control" type="text" id="firstName" ><br><br>
+                                <p><b>Last Name</b></p>
+                                <input class="form-control" type="text" id="lastName" ><br><br>
+                                <p><b>Email</b></p>
+                                <input class="form-control" type="text" id="email" >
+                            </div>
+                            <div class ="col-md-6 col-sm-6">
+                                <p><b>Address</b></p>
+                                Street: <input class="form-control" type="text" id="street"><br>
+                                City name: <input class="form-control" type="text" id="city"><br>
+                                Zip: <input class="form-control" type="text" id="zipCode"><br><br>
+                                <p><i>Additional information</i></p>
+                                <input class="form-control" type="text" id="additionalInfo">
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
+                    <button onclick="addPerson()" type="button" class="btn btn-default" data-dismiss="modal">Add User</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
